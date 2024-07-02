@@ -11,7 +11,7 @@
       class="row-span-2 bg-emerald-300 flex flex-col justify-between py-5 px-2"
     >
       <h1 class="text-2-xl font-bold px-6">Calculadora de Investimentos</h1>
-      <form class="w-full">
+      <form class="w-full" id="investment-form">
         <div class="flex flex-col w-full px-6 my-2">
           <label for="starting-amount" class="font-bold text-gray-700"
             >Investimento Inicial</label
@@ -27,6 +27,8 @@
               type="text"
               class="w-5/6 rounded-r-lg outline-emerald-400 px-2"
               id="starting-amount"
+              name="starting-amount"
+              required
               placeholder="0.00"
             />
           </div>
@@ -46,6 +48,7 @@
               type="text"
               class="w-5/6 rounded-r-lg outline-emerald-400 px-2"
               id="additional-contribution"
+              name="additional-contribution"
               placeholder="0.00"
             />
           </div>
@@ -57,10 +60,13 @@
               type="text"
               class="w-2/3 border-emerald-600 rounded-l-lg border-r-2 outline-emerald-400 px-2"
               id="time-amount"
+              name="time-amount"
+              required
               placeholder="0"
             />
             <select
               id="time-amount-period"
+              name="time-amount-period"
               class="w-1/3 text-center rounded-r-lg hover:bg-emerald-950 hover:text-slate-300 outline-emerald-400"
             >
               <option value="monthly">Mensal</option>
@@ -83,10 +89,13 @@
               type="text"
               class="w-1/2 border-emerald-600 border-r-2 outline-emerald-400 px-2"
               id="return-rate"
+              name="return-rate"
+              required
               placeholder="0"
             />
             <select
               id="evaluation-period"
+              name="evaluation-period"
               class="w-1/3 text-center rounded-r-lg hover:bg-emerald-950 hover:text-slate-300 outline-emerald-400"
             >
               <option value="monthly">Mensal</option>
@@ -109,6 +118,8 @@
               type="text"
               class="w-5/6 rounded-r-lg outline-emerald-400 px-2"
               id="tax-rate"
+              name="tax-rate"
+              required
               placeholder="0"
             />
           </div>
@@ -118,6 +129,7 @@
         <button
           class="w-1/2 rounded-lg bg-emerald-950 text-slate-200 hover:bg-emerald-800"
           id="calculate-results"
+          form="investment-form"
         >
           Calcular
         </button>
