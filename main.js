@@ -3,6 +3,9 @@ const form = document.getElementById("investment-form");
 
 function renderProgression(evt) {
   evt.preventDefault();
+  if (document.querySelector(".error")) {
+    return;
+  }
   //const startingAmount = Number(form['stating-amout'].value); - Forma alternativa e acessar os valores dos campos.
   const startingAmount = Number(
     document.getElementById("starting-amount").value.replace(",", ".")
@@ -41,12 +44,22 @@ function validateInput(evt) {
   const grandParentElement = evt.target.parentElement.parentElement;
   const inputValue = evt.target.value.replace(",", ".");
 
-  if (isNaN(inputValue) || Number(inputValue) <= 0) {
+  if (
+    (!parentElement.classList.contains("error") && isNaN(inputValue)) ||
+    Number(inputValue) <= 0
+  ) {
     const erroTextElement = document.createElement("p");
     erroTextElement.classList.add("text-red-500");
     erroTextElement.innerText = "Insira um valor númerico e maior que zero";
     parentElement.classList.add("error");
     grandParentElement.appendChild(erroTextElement);
+  } else if (
+    parentElement.classList.contains("error") &&
+    !isNaN(inputValue) &&
+    Number(inputValue) > 0
+  ) {
+    parentElement.classList.remove("error");
+    grandParentElement.querySelector("p").remove();
   }
 }
 for (const formElement of form) {
