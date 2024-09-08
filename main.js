@@ -1,5 +1,6 @@
 import { generateReturnsArray } from "./src/investmentGoals";
 const form = document.getElementById("investment-form");
+const clearFormButton = document.getElementById('clear-form');
 
 function renderProgression(evt) {
   evt.preventDefault();
@@ -35,6 +36,20 @@ function renderProgression(evt) {
   console.log(returnsArray);
 }
 
+function clearForm(){
+  form['starting-amount'].value = ''
+  form['additional-contribution'].value = ''
+  form['time-amount'].value = ''
+  form['return-rate'].value = ''
+  form['tax-rate'].value = ''
+
+  const errorInputContainers = document.querySelectorAll('.error');
+  for (const errorInputContainer of errorInputContainers){
+    errorInputContainer.classList.remove('error');
+    errorInputContainer.parentElement.querySelector('p').remove();
+  }
+}
+
 function validateInput(evt) {
   if (evt.target.value === "") {
     return;
@@ -45,8 +60,8 @@ function validateInput(evt) {
   const inputValue = evt.target.value.replace(",", ".");
 
   if (
-    (!parentElement.classList.contains("error") && isNaN(inputValue)) ||
-    Number(inputValue) <= 0
+    !parentElement.classList.contains("error") && (isNaN(inputValue) ||
+    Number(inputValue) <= 0)
   ) {
     const erroTextElement = document.createElement("p");
     erroTextElement.classList.add("text-red-500");
@@ -67,4 +82,6 @@ for (const formElement of form) {
     formElement.addEventListener("blur", validateInput);
   }
 }
+clearFormButton.addEventListener('click', clearForm)
 form.addEventListener("submit", renderProgression);
+
