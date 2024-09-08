@@ -1,6 +1,10 @@
 import { generateReturnsArray } from "./src/investmentGoals";
+import { Chart } from "chart.js/auto";
+
 const form = document.getElementById("investment-form");
-const clearFormButton = document.getElementById('clear-form');
+const clearFormButton = document.getElementById("clear-form");
+const finalMoneyChart = document.getElementById("final-money-distribution");
+const progressionChart = document.getElementById("progression");
 
 function renderProgression(evt) {
   evt.preventDefault();
@@ -33,20 +37,37 @@ function renderProgression(evt) {
     returnRatePeriod
   );
 
-  console.log(returnsArray);
+  new Chart(finalMoneyChart, {
+    type: "doughnut",
+    data: {
+      labels: ["Red", "Blue", "Yellow"],
+      datasets: [
+        {
+          label: "My First Dataset",
+          data: [300, 50, 100],
+          backgroundColor: [
+            "rgb(255, 99, 132)",
+            "rgb(54, 162, 235)",
+            "rgb(255, 205, 86)",
+          ],
+          hoverOffset: 4,
+        },
+      ],
+    },
+  });
 }
 
-function clearForm(){
-  form['starting-amount'].value = ''
-  form['additional-contribution'].value = ''
-  form['time-amount'].value = ''
-  form['return-rate'].value = ''
-  form['tax-rate'].value = ''
+function clearForm() {
+  form["starting-amount"].value = "";
+  form["additional-contribution"].value = "";
+  form["time-amount"].value = "";
+  form["return-rate"].value = "";
+  form["tax-rate"].value = "";
 
-  const errorInputContainers = document.querySelectorAll('.error');
-  for (const errorInputContainer of errorInputContainers){
-    errorInputContainer.classList.remove('error');
-    errorInputContainer.parentElement.querySelector('p').remove();
+  const errorInputContainers = document.querySelectorAll(".error");
+  for (const errorInputContainer of errorInputContainers) {
+    errorInputContainer.classList.remove("error");
+    errorInputContainer.parentElement.querySelector("p").remove();
   }
 }
 
@@ -60,8 +81,8 @@ function validateInput(evt) {
   const inputValue = evt.target.value.replace(",", ".");
 
   if (
-    !parentElement.classList.contains("error") && (isNaN(inputValue) ||
-    Number(inputValue) <= 0)
+    !parentElement.classList.contains("error") &&
+    (isNaN(inputValue) || Number(inputValue) <= 0)
   ) {
     const erroTextElement = document.createElement("p");
     erroTextElement.classList.add("text-red-500");
@@ -77,11 +98,12 @@ function validateInput(evt) {
     grandParentElement.querySelector("p").remove();
   }
 }
+
 for (const formElement of form) {
   if (formElement.tagName === "INPUT" && formElement.hasAttribute("name")) {
     formElement.addEventListener("blur", validateInput);
   }
 }
-clearFormButton.addEventListener('click', clearForm)
-form.addEventListener("submit", renderProgression);
 
+clearFormButton.addEventListener("click", clearForm);
+form.addEventListener("submit", renderProgression);
