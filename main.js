@@ -1,6 +1,7 @@
 import { generateReturnsArray } from "./src/investmentGoals";
 import { Chart } from "chart.js/auto";
 
+
 const form = document.getElementById("investment-form");
 const clearFormButton = document.getElementById("clear-form");
 const finalMoneyChart = document.getElementById("final-money-distribution");
@@ -42,7 +43,7 @@ function renderProgression(evt) {
   )
 
   const finalInvestmentObject = returnsArray[returnsArray.length - 1]
-
+  
   new Chart(finalMoneyChart, {
     type: "doughnut",
     data: {
@@ -64,6 +65,36 @@ function renderProgression(evt) {
       ],
     },
   });
+
+  new Chart(progressionChart, {
+    type: 'bar',
+    data: {
+      labels: returnsArray.map((returnObject) => returnObject.month),
+      datasets: [
+        {
+          label: 'Total Investido',
+          data: returnsArray.map((returnObject) => returnObject.investedAmount),
+          backgroundColor: 'rgb(255, 99, 132)',
+        },
+        {
+          label: 'Total Acumulado',
+          data: returnsArray.map((returnObject) => returnObject.interestReturns),
+          backgroundColor: 'rgb(54, 162, 235)',
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          stacked: true,
+        },
+        y: {
+          stacked: true,
+        },
+      },
+    },
+  })
 }
 
 function clearForm() {

@@ -6,7 +6,7 @@
   .error {
     @apply border-2;
     @apply border-red-600;
-    @apply outline-red-600; 
+    @apply outline-none;
     @apply rounded-lg;
   }
 }
