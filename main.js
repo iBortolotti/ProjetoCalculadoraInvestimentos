@@ -69,16 +69,16 @@ function renderProgression(evt) {
   new Chart(progressionChart, {
     type: 'bar',
     data: {
-      labels: returnsArray.map((returnObject) => returnObject.month),
+      labels: returnsArray.map((investmentObject) => investmentObject.month),
       datasets: [
         {
           label: 'Total Investido',
-          data: returnsArray.map((returnObject) => returnObject.investedAmount),
+          data: returnsArray.map((investmentObject) => formatCurrency(investmentObject.investedAmount)),
           backgroundColor: 'rgb(255, 99, 132)',
         },
         {
           label: 'Total Acumulado',
-          data: returnsArray.map((returnObject) => returnObject.interestReturns),
+          data: returnsArray.map((investmentObject) => formatCurrency(investmentObject.interestReturns)),
           backgroundColor: 'rgb(54, 162, 235)',
         },
       ],
