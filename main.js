@@ -69,7 +69,7 @@ function renderProgression(evt) {
           backgroundColor: "rgb(255, 99, 132)",
         },
         {
-          label: "Total Acumulado",
+          label: "Retorno do Investimento",
           data: returnsArray.map((investmentObject) => formatCurrency(investmentObject.interestReturns)),
           backgroundColor: "rgb(54, 162, 235)",
         },
